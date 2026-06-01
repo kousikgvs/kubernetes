@@ -1,0 +1,209 @@
+STREAMLIT DEPLOYMENT TO AWS EKS
+
+This guide deploys the Streamlit app in frontend/app.py to your existing EKS cluster.
+
+Target AWS setup:
+- AWS account: 932566365205
+- AWS region: ap-south-2
+- EKS cluster: kousik_cluster_1
+- Kubernetes manifest: k8s/streamlit.yaml
+
+Important:
+Do not name the Streamlit entry file streamlit.py. That file name shadows the installed streamlit package and can break startup. Use frontend/app.py instead.
+
+FILES TO CREATE
+
+1. frontend/app.py
+
+Content:
+import streamlit as st
+
+
+st.set_page_config(page_title="Streamlit Input Form", layout="centered")
+
+st.title("Input Form")
+st.write("Enter your details below and click submit.")
+
+with st.form("input_form"):
+		name = st.text_input("Name", placeholder="Enter your name")
+		message = st.text_area("Message", placeholder="Type your message here")
+		submitted = st.form_submit_button("Submit")
+
+if submitted:
+		if not name.strip() or not message.strip():
+				st.warning("Please fill in both fields before submitting.")
+		else:
+				st.success("Form submitted successfully.")
+				st.write(f"Name: {name}")
+				st.write(f"Message: {message}")
+
+2. frontend/requirements.txt
+
+Content:
+streamlit
+
+3. frontend/Dockerfile
+
+Content:
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+4. frontend/.dockerignore
+
+Content:
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+
+5. k8s/streamlit.yaml
+
+Content:
+apiVersion: v1
+kind: Namespace
+metadata:
+	name: streamlit-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: streamlit-frontend
+	namespace: streamlit-app
+spec:
+	replicas: 1
+	selector:
+		matchLabels:
+			app: streamlit-frontend
+	template:
+		metadata:
+			labels:
+				app: streamlit-frontend
+		spec:
+			containers:
+				- name: streamlit-frontend
+					image: 932566365205.dkr.ecr.ap-south-2.amazonaws.com/streamlit-frontend:v1
+					ports:
+						- containerPort: 8501
+					readinessProbe:
+						httpGet:
+							path: /_stcore/health
+							port: 8501
+						initialDelaySeconds: 10
+						periodSeconds: 10
+					livenessProbe:
+						httpGet:
+							path: /_stcore/health
+							port: 8501
+						initialDelaySeconds: 20
+						periodSeconds: 20
+					resources:
+						requests:
+							cpu: 250m
+							memory: 512Mi
+						limits:
+							cpu: 500m
+							memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+	name: streamlit-frontend
+	namespace: streamlit-app
+spec:
+	selector:
+		app: streamlit-frontend
+	ports:
+		- port: 80
+			targetPort: 8501
+			protocol: TCP
+	type: LoadBalancer
+
+STEP 1 - SET AWS AND IMAGE VARIABLES
+
+Run these commands in PowerShell from the repository root:
+
+$AWS_REGION = "ap-south-2"
+$AWS_ACCOUNT_ID = "932566365205"
+$CLUSTER_NAME = "kousik_cluster_1"
+$ECR_REPO_NAME = "streamlit-frontend"
+$IMAGE_TAG = "v1"
+$IMAGE_URI = "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$IMAGE_TAG"
+
+STEP 2 - VERIFY AWS ACCESS AND CLUSTER ACCESS
+
+aws sts get-caller-identity
+aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
+kubectl get nodes
+
+STEP 3 - CREATE THE ECR REPOSITORY
+
+aws ecr create-repository --repository-name $ECR_REPO_NAME --region $AWS_REGION
+
+If the repository already exists, AWS returns an error. That is safe to ignore.
+
+STEP 4 - LOG IN TO AMAZON ECR
+
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
+
+STEP 5 - BUILD THE STREAMLIT IMAGE
+
+docker build -t ${ECR_REPO_NAME}:${IMAGE_TAG} .\frontend
+docker tag ${ECR_REPO_NAME}:${IMAGE_TAG} $IMAGE_URI
+
+STEP 6 - PUSH THE IMAGE TO ECR
+
+docker push $IMAGE_URI
+
+STEP 7 - DEPLOY THE APP TO EKS
+
+kubectl apply -f .\k8s\streamlit.yaml
+
+STEP 8 - CHECK THE DEPLOYMENT STATUS
+
+kubectl get pods -n streamlit-app
+kubectl get svc -n streamlit-app
+kubectl rollout status deployment/streamlit-frontend -n streamlit-app
+
+STEP 9 - GET THE PUBLIC ENDPOINT
+
+kubectl get svc streamlit-frontend -n streamlit-app
+
+Wait until the EXTERNAL-IP or hostname is assigned by AWS. Then open it in the browser.
+
+STEP 10 - VIEW LOGS IF SOMETHING FAILS
+
+kubectl logs deployment/streamlit-frontend -n streamlit-app
+kubectl describe deployment streamlit-frontend -n streamlit-app
+kubectl describe service streamlit-frontend -n streamlit-app
+
+STEP 11 - UPDATE THE APP LATER
+
+When you change frontend/app.py:
+
+$IMAGE_TAG = "v2"
+$IMAGE_URI = "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$IMAGE_TAG"
+
+Update the image field inside k8s/streamlit.yaml to the new tag, then run:
+
+docker build -t ${ECR_REPO_NAME}:${IMAGE_TAG} .\frontend
+docker tag ${ECR_REPO_NAME}:${IMAGE_TAG} $IMAGE_URI
+docker push $IMAGE_URI
+kubectl apply -f .\k8s\streamlit.yaml
+kubectl rollout status deployment/streamlit-frontend -n streamlit-app
+
+STEP 12 - DELETE THE APP IF NEEDED
+
+kubectl delete -f .\k8s\streamlit.yaml
