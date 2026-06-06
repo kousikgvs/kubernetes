@@ -1,0 +1,251 @@
+NAME                  STATUS   ROLES    AGE   VERSION               INTERNAL-IP     EXTERNAL-IP     OS-IMAGE                                                             KERNEL-VERSION   CONTAINER-RUNTIME
+i-03b303861943b2c22   Ready    <none>   24m   v1.35.2-eks-f69f56f   172.31.20.150   18.60.58.88     Bottlerocket (EKS Auto, Standard) 2026.6.1 (aws-k8s-1.35-standard)   6.12.88          containerd://2.1.7+bottlerocket
+i-07abda612b1ac3c3e   Ready    <none>   24m   v1.35.2-eks-f69f56f   172.31.41.153   18.60.232.113   Bottlerocket (EKS Auto, Standard) 2026.6.1 (aws-k8s-1.35-standard)   6.12.88          containerd://2.1.7+bottlerocket
+Name:               i-03b303861943b2c22
+Roles:              <none>
+Labels:             app.kubernetes.io/managed-by=eks
+                    beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=c7i-flex.large
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=auto
+                    eks.amazonaws.com/instance-capability-flex=true
+                    eks.amazonaws.com/instance-category=c
+                    eks.amazonaws.com/instance-cpu=2
+                    eks.amazonaws.com/instance-cpu-manufacturer=intel
+                    eks.amazonaws.com/instance-cpu-sustained-clock-speed-mhz=3200
+                    eks.amazonaws.com/instance-ebs-bandwidth=10000
+                    eks.amazonaws.com/instance-encryption-in-transit-supported=true
+                    eks.amazonaws.com/instance-family=c7i-flex
+                    eks.amazonaws.com/instance-generation=7
+                    eks.amazonaws.com/instance-hypervisor=nitro
+                    eks.amazonaws.com/instance-memory=4096
+                    eks.amazonaws.com/instance-network-bandwidth=390
+                    eks.amazonaws.com/instance-size=large
+                    eks.amazonaws.com/nodeclass=default
+                    failure-domain.beta.kubernetes.io/region=ap-south-2
+                    failure-domain.beta.kubernetes.io/zone=ap-south-2c
+                    k8s.io/cloud-provider-aws=e9695923df026d57bd4cab51fce89e3d
+                    karpenter.k8s.aws/instance-tenancy=default
+                    karpenter.sh/capacity-type=on-demand
+                    karpenter.sh/do-not-sync-taints=true
+                    karpenter.sh/initialized=true
+                    karpenter.sh/nodepool=system
+                    karpenter.sh/registered=true
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=i-03b303861943b2c22
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=c7i-flex.large
+                    topology.ebs.csi.eks.amazonaws.com/zone=ap-south-2c
+                    topology.k8s.aws/zone-id=aps2-az3
+                    topology.kubernetes.io/region=ap-south-2
+                    topology.kubernetes.io/zone=ap-south-2c
+Annotations:        alpha.kubernetes.io/provided-node-ip: 172.31.20.150
+                    csi.volume.kubernetes.io/nodeid: {"ebs.csi.eks.amazonaws.com":"i-03b303861943b2c22"}
+                    eks.amazonaws.com/ca-bundle-hash: 12528984940042431918
+                    eks.amazonaws.com/kubelet-version: 1.35
+                    eks.amazonaws.com/nodeclass-hash: 9872730341068928152
+                    eks.amazonaws.com/nodeclass-hash-version: v2
+                    karpenter.sh/nodeclaim-min-values-relaxed: false
+                    karpenter.sh/nodepool-hash: 4982684901400657622
+                    karpenter.sh/nodepool-hash-version: v3
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 06 Jun 2026 17:14:49 +0530
+Taints:             CriticalAddonsOnly:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  i-03b303861943b2c22
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 06 Jun 2026 17:39:48 +0530
+Conditions:
+  Type                    Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                    ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure          False   Sat, 06 Jun 2026 17:36:45 +0530   Sat, 06 Jun 2026 17:14:47 +0530   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure            False   Sat, 06 Jun 2026 17:36:45 +0530   Sat, 06 Jun 2026 17:14:47 +0530   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure             False   Sat, 06 Jun 2026 17:36:45 +0530   Sat, 06 Jun 2026 17:14:47 +0530   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                   True    Sat, 06 Jun 2026 17:36:45 +0530   Sat, 06 Jun 2026 17:14:49 +0530   KubeletReady                 kubelet is posting ready status
+  KernelReady             True    Sat, 06 Jun 2026 17:39:50 +0530   Sat, 06 Jun 2026 17:14:48 +0530   KernelIsReady                Monitoring for the Kernel system is active
+  StorageReady            True    Sat, 06 Jun 2026 17:39:50 +0530   Sat, 06 Jun 2026 17:14:48 +0530   DiskIsReady                  Monitoring for the Disk system is active
+  ContainerRuntimeReady   True    Sat, 06 Jun 2026 17:39:50 +0530   Sat, 06 Jun 2026 17:14:48 +0530   ContainerRuntimeIsReady      Monitoring for the ContainerRuntime system is active
+  NetworkingReady         True    Sat, 06 Jun 2026 17:39:50 +0530   Sat, 06 Jun 2026 17:14:48 +0530   NetworkingIsReady            Monitoring for the Networking system is active
+Addresses:
+  InternalIP:   172.31.20.150
+  ExternalIP:   18.60.58.88
+  InternalDNS:  ip-172-31-20-150.ap-south-2.compute.internal
+  Hostname:     ip-172-31-20-150.ap-south-2.compute.internal
+  ExternalDNS:  ec2-18-60-58-88.ap-south-2.compute.amazonaws.com
+Capacity:
+  cpu:                2
+  ephemeral-storage:  81854Mi
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3903588Ki
+  pods:               27
+Allocatable:
+  cpu:                1780m
+  ephemeral-storage:  76173383962
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3159140Ki
+  pods:               27
+System Info:
+  Machine ID:                 ec2840aad10da1d073a6b959f4f1c971
+  System UUID:                ec2840aa-d10d-a1d0-73a6-b959f4f1c971
+  Boot ID:                    9702fc8f-7e85-461b-a06f-c0bfdeb45ca8
+  Kernel Version:             6.12.88
+  OS Image:                   Bottlerocket (EKS Auto, Standard) 2026.6.1 (aws-k8s-1.35-standard)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://2.1.7+bottlerocket
+  Kubelet Version:            v1.35.2-eks-f69f56f
+  Kube-Proxy Version:         
+ProviderID:                   aws:///ap-south-2c/i-03b303861943b2c22
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                              CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                              ------------  ----------  ---------------  -------------  ---
+  kube-system                 metrics-server-96484979b-jqzb5    100m (5%)     0 (0%)      200Mi (6%)       400Mi (12%)    25m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                100m (5%)   0 (0%)
+  memory             200Mi (6%)  400Mi (12%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  Synced             25m   cloud-node-controller  Node synced successfully
+  Normal  RegisteredNode     25m   node-controller        Node i-03b303861943b2c22 event: Registered Node i-03b303861943b2c22 in Controller
+  Normal  Ready              25m   karpenter              Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+  Normal  DisruptionBlocked  25m   eks-auto-mode/compute  Node is nominated for a pending pod
+
+
+Name:               i-07abda612b1ac3c3e
+Roles:              <none>
+Labels:             app.kubernetes.io/managed-by=eks
+                    beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=c7i-flex.large
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=auto
+                    eks.amazonaws.com/instance-capability-flex=true
+                    eks.amazonaws.com/instance-category=c
+                    eks.amazonaws.com/instance-cpu=2
+                    eks.amazonaws.com/instance-cpu-manufacturer=intel
+                    eks.amazonaws.com/instance-cpu-sustained-clock-speed-mhz=3200
+                    eks.amazonaws.com/instance-ebs-bandwidth=10000
+                    eks.amazonaws.com/instance-encryption-in-transit-supported=true
+                    eks.amazonaws.com/instance-family=c7i-flex
+                    eks.amazonaws.com/instance-generation=7
+                    eks.amazonaws.com/instance-hypervisor=nitro
+                    eks.amazonaws.com/instance-memory=4096
+                    eks.amazonaws.com/instance-network-bandwidth=390
+                    eks.amazonaws.com/instance-size=large
+                    eks.amazonaws.com/nodeclass=default
+                    failure-domain.beta.kubernetes.io/region=ap-south-2
+                    failure-domain.beta.kubernetes.io/zone=ap-south-2b
+                    k8s.io/cloud-provider-aws=e9695923df026d57bd4cab51fce89e3d
+                    karpenter.k8s.aws/instance-tenancy=default
+                    karpenter.sh/capacity-type=on-demand
+                    karpenter.sh/do-not-sync-taints=true
+                    karpenter.sh/initialized=true
+                    karpenter.sh/nodepool=system
+                    karpenter.sh/registered=true
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=i-07abda612b1ac3c3e
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=c7i-flex.large
+                    topology.ebs.csi.eks.amazonaws.com/zone=ap-south-2b
+                    topology.k8s.aws/zone-id=aps2-az2
+                    topology.kubernetes.io/region=ap-south-2
+                    topology.kubernetes.io/zone=ap-south-2b
+Annotations:        alpha.kubernetes.io/provided-node-ip: 172.31.41.153
+                    csi.volume.kubernetes.io/nodeid: {"ebs.csi.eks.amazonaws.com":"i-07abda612b1ac3c3e"}
+                    eks.amazonaws.com/ca-bundle-hash: 12528984940042431918
+                    eks.amazonaws.com/kubelet-version: 1.35
+                    eks.amazonaws.com/nodeclass-hash: 9872730341068928152
+                    eks.amazonaws.com/nodeclass-hash-version: v2
+                    karpenter.sh/nodeclaim-min-values-relaxed: false
+                    karpenter.sh/nodepool-hash: 4982684901400657622
+                    karpenter.sh/nodepool-hash-version: v3
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 06 Jun 2026 17:14:51 +0530
+Taints:             CriticalAddonsOnly:NoSchedule
+                    karpenter.sh/disrupted:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  i-07abda612b1ac3c3e
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 06 Jun 2026 17:39:50 +0530
+Conditions:
+  Type                    Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                    ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure          False   Sat, 06 Jun 2026 17:35:14 +0530   Sat, 06 Jun 2026 17:14:50 +0530   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure            False   Sat, 06 Jun 2026 17:35:14 +0530   Sat, 06 Jun 2026 17:14:50 +0530   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure             False   Sat, 06 Jun 2026 17:35:14 +0530   Sat, 06 Jun 2026 17:14:50 +0530   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                   True    Sat, 06 Jun 2026 17:35:14 +0530   Sat, 06 Jun 2026 17:14:52 +0530   KubeletReady                 kubelet is posting ready status
+  StorageReady            True    Sat, 06 Jun 2026 17:39:51 +0530   Sat, 06 Jun 2026 17:14:51 +0530   DiskIsReady                  Monitoring for the Disk system is active
+  ContainerRuntimeReady   True    Sat, 06 Jun 2026 17:39:51 +0530   Sat, 06 Jun 2026 17:14:51 +0530   ContainerRuntimeIsReady      Monitoring for the ContainerRuntime system is active
+  NetworkingReady         True    Sat, 06 Jun 2026 17:39:51 +0530   Sat, 06 Jun 2026 17:14:51 +0530   NetworkingIsReady            Monitoring for the Networking system is active
+  KernelReady             True    Sat, 06 Jun 2026 17:39:51 +0530   Sat, 06 Jun 2026 17:14:51 +0530   KernelIsReady                Monitoring for the Kernel system is active
+Addresses:
+  InternalIP:   172.31.41.153
+  ExternalIP:   18.60.232.113
+  InternalDNS:  ip-172-31-41-153.ap-south-2.compute.internal
+  Hostname:     ip-172-31-41-153.ap-south-2.compute.internal
+  ExternalDNS:  ec2-18-60-232-113.ap-south-2.compute.amazonaws.com
+Capacity:
+  cpu:                2
+  ephemeral-storage:  81854Mi
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3903592Ki
+  pods:               27
+Allocatable:
+  cpu:                1780m
+  ephemeral-storage:  76173383962
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             3159144Ki
+  pods:               27
+System Info:
+  Machine ID:                 ec249b4d0dec3d9509211e3a36689b76
+  System UUID:                ec249b4d-0dec-3d95-0921-1e3a36689b76
+  Boot ID:                    ddedd758-8cc2-4ba2-bd8e-57975be6508e
+  Kernel Version:             6.12.88
+  OS Image:                   Bottlerocket (EKS Auto, Standard) 2026.6.1 (aws-k8s-1.35-standard)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://2.1.7+bottlerocket
+  Kubelet Version:            v1.35.2-eks-f69f56f
+  Kube-Proxy Version:         
+ProviderID:                   aws:///ap-south-2b/i-07abda612b1ac3c3e
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                              CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                              ------------  ----------  ---------------  -------------  ---
+  kube-system                 metrics-server-96484979b-pg8q6    100m (5%)     0 (0%)      200Mi (6%)       400Mi (12%)    25m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                100m (5%)   0 (0%)
+  memory             200Mi (6%)  400Mi (12%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:
+  Type    Reason                  Age                  From                   Message
+  ----    ------                  ----                 ----                   -------
+  Normal  Synced                  25m                  cloud-node-controller  Node synced successfully
+  Normal  DisruptionBlocked       25m                  eks-auto-mode/compute  Node isn't initialized
+  Normal  Ready                   25m                  karpenter              Status condition transitioned, Type: Ready, Status: False -> True, Reason: KubeletReady, Message: kubelet is posting ready status
+  Normal  RegisteredNode          24m                  node-controller        Node i-07abda612b1ac3c3e event: Registered Node i-07abda612b1ac3c3e in Controller
+  Normal  ConsolidationCandidate  5m25s (x4 over 24m)  eks-auto-mode/compute  Consolidation candidate: replace: [i-07abda612b1ac3c3e] -> [1 replacement] (savings: $0.07)
+PS C:\projects\kubernetes> 
+
+
+NAME                  STATUS   ROLES    AGE   VERSION
+i-03b303861943b2c22   Ready    <none>   32m   v1.35.2-eks-f69f56f
+i-07abda612b1ac3c3e   Ready    <none>   31m   v1.35.2-eks-f69f56f
