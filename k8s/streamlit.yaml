@@ -9,7 +9,7 @@ metadata:
   name: streamlit-frontend
   namespace: streamlit-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: streamlit-frontend
@@ -18,9 +18,18 @@ spec:
       labels:
         app: streamlit-frontend
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: streamlit-frontend
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: streamlit-frontend
-          image: 932566365205.dkr.ecr.ap-south-2.amazonaws.com/streamlit-frontend:v1
+          image: 932566365205.dkr.ecr.ap-south-2.amazonaws.com/streamlit_repo:v1
           ports:
             - containerPort: 8501
           readinessProbe:
@@ -42,17 +51,3 @@ spec:
             limits:
               cpu: 500m
               memory: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: streamlit-frontend
-  namespace: streamlit-app
-spec:
-  selector:
-    app: streamlit-frontend
-  ports:
-    - port: 80
-      targetPort: 8501
-      protocol: TCP
-  type: LoadBalancer
