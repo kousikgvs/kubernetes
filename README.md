@@ -81,7 +81,7 @@ Configure AWS credentials:
 aws configure
 ```
 
-## IAM Access Flow for kubectl
+## If AWS - kubectl Doesnt connect automatically connect using Below Steps after creating the cluster
 
 ClusterIAMRole: EKS - Cluster
 
@@ -189,13 +189,6 @@ eksctl create cluster `
        --managed
 ```
 
-This command creates:
-
-- The EKS control plane
-- The required AWS networking resources
-- A managed node group named `linux-nodes`
-- Two worker nodes to start with
-- A local `kubeconfig` entry in most cases so `kubectl` can connect
 
 Confirm that the cluster is ready:
 
@@ -203,7 +196,6 @@ Confirm that the cluster is ready:
 aws eks list-clusters --region $AWS_REGION
 aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
 # Use a human or CI access role that has an EKS access entry. Do not use the EC2 node role here.
-aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME --role-arn arn:aws:iam::123456789012:role/EKSClusterAdminRole
 kubectl get nodes
 kubectl config current-context
 kubectl cluster-info
